@@ -1,0 +1,39 @@
+%%main
+close all;
+clc;
+clear;
+syms x y;
+format long;
+fun(x,y)=(x^2+y^2)/2;
+dfunx(x,y)=diff(fun,x,1);
+dfuny(x,y)=diff(fun,y,1);                                                                       
+x0=3.00;
+y0=3.00;
+eps=0.000001;
+lambda=0.01;
+[ans_x,ans_y,n,point]=Gradient_Descent(fun,dfunx,dfuny,x0,y0,eps,lambda);
+
+
+function [newx,newy,num_iterator,point]=Gradient_Descent(fun,dfunx,dfuny,x0,y0,eps,h)
+    format long;
+    dx=feval(dfunx,x0,y0);
+    dy=feval(dfuny,x0,y0);
+    dx=double(dx);
+    dy=double(dy);
+    newx=x0-h*dx;
+    newy=y0-h*dy;
+    num_iterator=1;
+    value_a=double(feval(fun,x0,y0));
+    value_b=double(feval(fun,newx,newy));
+    point(num_iterator,:)=[newx,newy,value_a];
+    while(abs(value_a-value_b)>eps && num_iterator<50000)
+        value_a=value_b;
+        dx=double(feval(dfunx,newx,newy));
+        dy=double(feval(dfuny,newx,newy));
+        newx=newx-h*dx;
+        newy=newy-h*dy;
+        num_iterator=num_iterator+1;
+        value_b=double(feval(fun,newx,newy));
+        point(num_iterator,:)=[newx,newy,value_a];
+    end
+end
