@@ -1,0 +1,11 @@
+%%
+[x,feval]=linprog(f,A,b,Aeq,beq,lb,ub);
+%% or
+[x,feval]=linprog(f,A,b);
+%%f:目标函数的系数列向量
+%%A：不等式约束的系数矩阵
+%%b：不等式约束的限制
+%%Aeq:等式约束的系数矩阵
+%%beq：等式约束的限制
+%%lb:下界
+%%ub:上界
